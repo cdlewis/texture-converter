@@ -37,7 +37,7 @@ $('folder').addEventListener('change', () => {
   $('folder').value = '';
   if (!files.length) return;
   stop(); release();
-  for (const id of ['download', 'download-note', 'issues']) $(id).hidden = true;
+  for (const id of ['download', 'issues']) $(id).hidden = true;
   $('issue-list').replaceChildren(); $('counts').textContent = '';
   $('result').hidden = false; $('progress').hidden = false; $('progress').value = 0;
   $('status').classList.remove('error'); $('status').textContent = 'Reading your dump folder…';
@@ -62,7 +62,7 @@ $('folder').addEventListener('change', () => {
       state = { status: 'complete', converted: r.converted, failed: r.failed, unpaired: r.orphans.length, downloadable: !!r.blob };
       $('status').textContent = r.converted ? `${r.converted.toLocaleString()} PNG${r.converted === 1 ? '' : 's'} ready` : 'No textures could be converted.';
       $('counts').textContent = `${r.converted.toLocaleString()} converted · ${r.failed.toLocaleString()} failed · ${r.orphans.length.toLocaleString()} unpaired files`;
-      $('progress').max = 1; $('progress').value = 1;
+      $('progress').hidden = true;
       const issues = [...r.errors, ...r.orphans.map(path => ({ path, message: 'Missing matching .tile.json' }))];
       if (issues.length) {
         $('issues').hidden = false;
@@ -73,7 +73,7 @@ $('folder').addEventListener('change', () => {
       }
       if (r.blob) {
         link('download', r.blob, name + '-pngs.zip');
-        $('download').click(); $('download-note').hidden = false;
+        $('download').click();
       }
     }
   };
