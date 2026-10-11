@@ -11,8 +11,9 @@
   --error: #a51d24;
 }
 * { box-sizing: border-box; }
-body { margin: 0; background: transparent; }
-main { max-width: 620px; margin: 0 auto; padding: 24px; }
+body { display: flex; flex-direction: column; min-height: 100vh; margin: 0; background: transparent; }
+/* Auto margins center short embeds without clipping content in shorter frames. */
+main { flex-shrink: 0; width: 100%; max-width: 620px; margin: auto; padding: 24px; }
 .intro { margin-bottom: 24px; }
 h1 { font-size: clamp(1.5rem, 5vw, 1.875rem); font-weight: 650; letter-spacing: -.035em; line-height: 1.2; margin: 0; }
 h2 { margin: 0; font-size: 1.125rem; font-weight: 600; line-height: 1.5; }
